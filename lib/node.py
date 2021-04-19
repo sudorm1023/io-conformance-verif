@@ -15,8 +15,8 @@ Node 1 : {state:s1, action:i?}
 Node 2 : {state:s2, action:o!}
 """
 
-from action import Action
-from state import State
+from lib.action import Action
+from lib.state import State
 from typing import List
 
 

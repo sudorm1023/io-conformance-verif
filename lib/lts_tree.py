@@ -4,9 +4,8 @@
 该模块对LTS系统抽象一颗LTSTree，使用树来表示LTS
 """
 
-import state
 import queue
-from action import ActionEnum
+from lib.action import ActionEnum
 
 
 class LTSTree:
@@ -25,21 +24,21 @@ class LTSTree:
         :param other: LTSTree实例，一般表示规范的LTS树实例
         :return: if implementation 满足一致性 specification，返回True，否则返回False
         """
-        if self.__root or other.root:
+        if not self.root or not other.root:
             return False
         q = queue.Queue()
-        q.put(self.__root)
-        flag = False
+        q.put(self.root)
+        flag = True
 
         while not q.empty():
             node = q.get()
 
             # 判断根节点和其他节点
-            if node.action:
-                continue
+            if not node.action:
+                pass
             else:
                 flag = self.after(node.action.action_name, node.action.action_type).issubset(other.after(
-                    other.action.action_name, other.action.action_type))
+                    node.action.action_name, node.action.action_type))
             if not flag:
                 return False
 
@@ -75,7 +74,7 @@ class LTSTree:
         """
         nodes_list = []  # 保存符合要求的节点
 
-        if not self.__root:
+        if not self.root:
             return nodes_list
 
         node = None
@@ -135,7 +134,9 @@ class LTSTree:
 
         while not q.empty():
             node = q.get()
-            if node.action.action_type == action_type and node.action.action_name == action_name:
+            if not node.action:
+                pass
+            elif node.action.action_type == action_type and node.action.action_name == action_name:
                 break
 
             if node.children:
