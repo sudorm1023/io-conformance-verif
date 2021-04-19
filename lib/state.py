@@ -11,19 +11,21 @@ class State:
         :param state_name: 状态节点的标识名称
         :return: None
         """
-        self.name = state_name
+        self.__name = state_name
 
-    def get_name(self):
+    @property
+    def state_name(self):
         """
         获取状态节点的标识名称
         :return: 节点的名称
         """
-        return self.name
+        return self.__name
 
-    def set_name(self, state_name):
+    @state_name.setter
+    def state_name(self, state_name):
         """
         更改节点的名称
         :param state_name: 新的节点名称
         :return: None
         """
-        self.name = state_name
+        self.__name = state_name
