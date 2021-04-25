@@ -62,5 +62,18 @@ def get_node_children(ia_: InterfaceAutomata, state: IaState) -> List[Node]:
             node = Node(node_action, node_state)
             children.append(node)
 
-    return node
+    return children
 
+
+def get_ia_state(ia: InterfaceAutomata, state_name: str) -> IaState:
+    """
+    根据状态的名字找到ia中对应的State对象
+    :param ia: InterfaceAutomata实例
+    :param state_name: The name of state
+    :return: IaState对象
+    """
+    for state in ia.states:
+        if state.state_name == state_name:
+            return state
+
+    return None

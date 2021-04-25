@@ -6,6 +6,7 @@ from ia.state import State as IaState
 from lib.lts_tree import LTSTree
 from lib.state import State as LtsState
 from parserlib.common import get_node_children
+from parserlib.common import get_ia_state
 import queue
 
 
@@ -23,7 +24,8 @@ def ia_parser_to_tree(ia: InterfaceAutomata) -> LTSTree:
 
     while not q.empty():
         node = q.get()
-        ia_state = IaState(node.state.state_name)
+        name = node.state.state_name
+        ia_state = get_ia_state(ia, node.state.state_name)
         node.children = get_node_children(ia, ia_state)
         if node.children:
             for child in node.children:

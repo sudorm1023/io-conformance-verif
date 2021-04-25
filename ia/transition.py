@@ -9,7 +9,7 @@ class Transition:
     该类是对IA中transition的抽象
     """
 
-    def __init__(self, start_state, action, end_state):
+    def __init__(self, start_state: State, action: Action, end_state: State):
         """
         :param start_state: 转换的开始状态
         :param action: 转换上的动作
