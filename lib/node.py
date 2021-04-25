@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from typing import List
+
 """
 将要实现的一致性检测算法需要通过树的遍历来完成，
 因此，需要定义树的节点，每个结点点包含两部分信息：状态结点和动作这个部分的信息。
@@ -35,7 +37,7 @@ class Node:
         self.__children = None
 
     @property
-    def state(self):
+    def state(self) -> State:
         """
         :return: 返回Node结点中的state实例
         """
@@ -51,7 +53,7 @@ class Node:
         self.__state = state
 
     @property
-    def action(self):
+    def action(self) -> Action:
         """
         :return: 返回Node节点中的action实例
         """
@@ -75,7 +77,7 @@ class Node:
         return self.__children
 
     @children.setter
-    def children(self, children: List):
+    def children(self, children):
         """
         更新该结点的孩子结点集合
         :param children: 孩子结点的集合

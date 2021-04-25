@@ -33,7 +33,7 @@ class Action:
         self.__type = action_type
 
     @property
-    def action_name(self):
+    def action_name(self) -> str:
         """
         返回动作的名称
         :return: name
@@ -50,7 +50,7 @@ class Action:
         self.__name = action_name
 
     @property
-    def action_type(self):
+    def action_type(self) -> ActionEnum:
         """
         返回动作的类型
         :return: type

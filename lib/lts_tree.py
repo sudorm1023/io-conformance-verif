@@ -6,19 +6,21 @@
 
 import queue
 from lib.action import ActionEnum
+from lib.node import Node
+from typing import List
 
 
 class LTSTree:
     """
     类LTSTree使用树的形式来抽象表示LTS系统
     """
-    def __init__(self, root):
+    def __init__(self, root: Node):
         """
         :param root: 树的根节点
         """
         self.__root = root
 
-    def io_conform(self, other):
+    def io_conform(self, other) -> bool:
         """
         对LTS系统进行一致性检测，检查实现是否io一致性规范
         :param other: LTSTree实例，一般表示规范的LTS树实例
@@ -49,7 +51,7 @@ class LTSTree:
         return flag
 
     @property
-    def root(self):
+    def root(self) -> Node:
         """
         返回根节点
         :return: 根节点
@@ -57,7 +59,7 @@ class LTSTree:
         return self.__root
 
     @root.setter
-    def root(self, root):
+    def root(self, root: Node):
         """
         更新根节点
         :param root: 新的根节点
@@ -65,7 +67,7 @@ class LTSTree:
         """
         self.__root = root
 
-    def out(self, state_name: str):
+    def out(self, state_name: str) -> List[Node]:
         """
         根据该定义获得 out(q) =def { x∈LU | q −−x→ } ∪ { δ | δ(q) }
         也就是获取获取存在output action 转换的节点
