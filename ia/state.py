@@ -12,13 +12,13 @@ class State:
         self.__state_name = state_name
 
     @property
-    def state_name(self):
+    def state_name(self) -> str:
         return self.__state_name
 
     @state_name.setter
-    def state_name(self, state_name):
+    def state_name(self, state_name: str):
         """
         :param state_name: The name of state
         :return: None
         """
-        self.__state_name == state_name
+        self.__state_name = state_name

@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
 from ia.state import State
+from ia.transition import Transition
+from typing import List
+from ia.action import Action
+from typing import Optional
 
 
 class InterfaceAutomata:
@@ -10,11 +14,11 @@ class InterfaceAutomata:
 
     def __init__(self,
                  state_int: State,
-                 states: list,
-                 ins: list,
-                 outs: list,
-                 hides: list,
-                 trans: list):
+                 states: List[State],
+                 ins: List[Action],
+                 outs: List[Action],
+                 hides: List[Action],
+                 trans: List[Transition]):
         """
         :param state_int: The initialize state of IA
         :param states: The list of State
@@ -31,11 +35,11 @@ class InterfaceAutomata:
         self.__transitions = trans
 
     @property
-    def states(self):
+    def states(self) -> List[State]:
         return self.__states
 
     @states.setter
-    def states(self, states: list):
+    def states(self, states: List[State]):
         self.__states = states
 
     def add_state(self, state):
@@ -45,11 +49,11 @@ class InterfaceAutomata:
             self.__states.append(state)
 
     @property
-    def ins(self):
+    def ins(self) -> List[Action]:
         return self.__ins
 
     @ins.setter
-    def ins(self, inputs: list):
+    def ins(self, inputs: List[Action]):
         self.__ins = inputs
 
     def add_in_action(self, inputs):
@@ -59,11 +63,11 @@ class InterfaceAutomata:
             self.__ins.append(inputs)
 
     @property
-    def outs(self):
+    def outs(self) -> List[Action]:
         return self.__outs
 
     @outs.setter
-    def outs(self, outputs: list):
+    def outs(self, outputs: List[Action]):
         self.__outs = outputs
 
     def add_out_action(self, output):
@@ -73,11 +77,11 @@ class InterfaceAutomata:
             self.__outs.append(output)
 
     @property
-    def hides(self):
+    def hides(self) -> List[Action]:
         return self.__hides
 
     @hides.setter
-    def hides(self, hides: list):
+    def hides(self, hides: List[Action]):
         self.__hides = hides
 
     def add_hide_action(self, hide):
@@ -87,11 +91,11 @@ class InterfaceAutomata:
             self.__hides.append(hide)
 
     @property
-    def transitions(self):
+    def transitions(self) -> List[Transition]:
         return self.__transitions
 
     @transitions.setter
-    def transitions(self, trans: list):
+    def transitions(self, trans: List[Transition]):
         self.__transitions = trans
 
     def add_transition(self, tran):
@@ -108,7 +112,7 @@ class InterfaceAutomata:
         return self.__state_init
 
     @state_init.setter
-    def state_name(self, state: State):
+    def state_init(self, state: State):
         """
         :param state: Update new initial state
         :return: None

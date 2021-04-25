@@ -12,7 +12,7 @@ class Action:
         self.__name = action_name
 
     @property
-    def action_name(self):
+    def action_name(self) -> str:
         """
         :return: the name of action
         """
