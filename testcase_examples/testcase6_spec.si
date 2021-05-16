@@ -1,0 +1,6 @@
+module testcase5_imp
+initial : s0
+input but : {s0 -> s1}
+output liq : {s1 -> s2}
+endmodule
+

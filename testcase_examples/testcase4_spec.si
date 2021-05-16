@@ -1,0 +1,4 @@
+module testcase4_spec
+initial : s0
+input act1 : {s0 -> s1}
+endmodule

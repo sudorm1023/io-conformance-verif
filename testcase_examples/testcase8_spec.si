@@ -1,0 +1,8 @@
+module testcase5_spec
+initial : s0
+input but : {s0 -> s1}
+input but : {s0 -> s2}
+output liq : {s1 -> s3}
+input but : {s2 -> s4}
+output choc : {s4 -> s5}
+endmodule
