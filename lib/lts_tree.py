@@ -19,6 +19,7 @@ class LTSTree:
         :param root: 树的根节点
         """
         self.__root = root
+        self.__paths = []
 
     def io_conform(self, other) -> bool:
         """
@@ -49,6 +50,58 @@ class LTSTree:
                     q.put(child)
 
         return flag
+
+    def trace(self):
+        """
+        获取一棵树的所有路径
+        :return: 一颗树的所有路径
+        """
+        if not self.root:
+            return
+
+        q = queue.Queue()
+        q.put(self.root)
+
+        while not q.empty():
+            node = q.get()
+            path = ''
+            if not node.action:
+                pass
+            else:
+                if node.action.action_type == ActionEnum.INTERNAL:
+                    path += '$'
+                else:
+                    path += node.action.action_name
+
+            self.__paths.append(path)
+
+    def io_conform2(self, other) -> bool:
+        """
+        使用另外一种算法来实现io一致性检测
+        :param other:  LTSTree实例，一般表示规范的LTS树实例
+        :return: if implementation 满足一致性 specification，返回True，否则返回False
+        """
+        if not self.root or not other.root:
+            return False
+
+        return set(self.__paths) <= set(other.paths)
+
+    @property
+    def paths(self):
+        """
+        返回路径
+        :return: 返回路径的列表
+        """
+        return self.__paths
+
+    @paths.setter
+    def paths(self, value):
+        """
+        更新路径
+        :param value: 更新的path列表值
+        :return: None
+        """
+        self.__paths = value
 
     @property
     def root(self) -> Node:
