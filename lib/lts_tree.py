@@ -51,6 +51,29 @@ class LTSTree:
 
         return flag
 
+    def init_p(self):
+        """
+        init(p) = {a 属于L | p =a=>}
+        :return: init(self.root), Action名字的列表
+        """
+        if not self.root:
+            return None
+
+        stack = list()
+        actions = list()
+        stack.append(self.root)
+
+        while stack:
+            node = stack.pop()
+            if node.children:
+                for child in node.children:
+                    if child.action.action_type == ActionEnum.INTERNAL:
+                        stack.append(child)
+                    else:
+                        actions.append(child.action)
+
+        return [(action.action_name, action.action_type) for action in actions]
+
     def trace(self):
         """
         获取一棵树的所有路径
