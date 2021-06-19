@@ -68,17 +68,27 @@ class LTSTree:
         求树的路径
         :return:
         """
-        if not self.root:
-            return []
-        path_state_list = list()
-        q = queue.Queue()
-        q.put(self.root)
 
-        while q:
-            path = []
-            node = q.get()
-            if node.children:
-                pass
+        def dfs(root):
+            if not root:
+                # self.paths.append(''.join(path))
+                return
+            if not root.action:
+                path.append('')
+            elif root.action.action_type == ActionEnum.INTERNAL:
+                path.append('#')
+            else:
+                path.append(root.action.action_name)
+
+            if root.children:
+                for child in root.children:
+                    dfs(child)
+                    self.paths.append(''.join(path))
+                    path.pop()
+
+        path = []
+        self.paths = []
+        dfs(self.root)
 
     def init_p(self):
         """
