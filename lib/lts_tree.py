@@ -7,7 +7,9 @@
 import queue
 from lib.action import ActionEnum
 from lib.node import Node
+from lib.state import State as LtsState
 from typing import List
+import queue
 
 
 class LTSTree:
@@ -51,13 +53,40 @@ class LTSTree:
 
         return flag
 
+    def after_trace(self, trace):
+        """
+
+        :param trace: 动作的序列集合
+        :return: 状态对象的集合
+        """
+        if not self.root:
+            return None
+
+    # 可能需要回溯算法, 需要研究
+    def _tree_path(self):
+        """
+        求树的路径
+        :return:
+        """
+        if not self.root:
+            return []
+        path_state_list = list()
+        q = queue.Queue()
+        q.put(self.root)
+
+        while q:
+            path = []
+            node = q.get()
+            if node.children:
+                pass
+
     def init_p(self):
         """
         init(p) = {a 属于L | p =a=>}
         :return: init(self.root), Action名字的列表
         """
         if not self.root:
-            return None
+            return []
 
         stack = list()
         actions = list()
@@ -227,3 +256,31 @@ class LTSTree:
             action_set.add(node_.action.action_name)
 
         return action_set
+
+
+def get_quiescent_states(lts_tree) -> List[LtsState]:
+    """
+
+    :param lts_tree: LTSTree对象实例
+    :return: 返回沉默状态的列表
+    """
+    states = []
+    if not lts_tree.root:
+        return states;
+
+    q = list((lts_tree.root,))
+    flag = False
+    while q:
+        for _ in range(len(q)):
+            node = q.pop(0)
+            if node.children:
+                for child in node.children:
+                    if (child.action.action_type == ActionEnum.INTERNAL or
+                            child.action.action_type == ActionEnum.OUTPUT):
+                        flag = True
+                    q.append(child)
+            if flag:
+                states.append(node.state)
+            flag = False
+
+    return states
