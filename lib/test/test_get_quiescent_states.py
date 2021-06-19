@@ -19,7 +19,7 @@ class MyTestCase(unittest.TestCase):
         states = get_quiescent_states(imp)
         self.assertEqual([state.state_name for state in states], ['s1'])
 
-    def test_get_quiescent_stetes1(self):
+    def test_get_quiescent_states1(self):
         # specification
         # specification: s0 - but?-> s1, s0 - but?-> s2, s1 - liq!-> s3, s2 - but?-> s4, s4 - choc!-> s5
         spec_root = Node(None, State("s0"))
