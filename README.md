@@ -13,6 +13,10 @@
     * `sts.py`: 该文件描述安全迁移系统
     * `testcase.py`: 增加一致性种的测试用例系统
   
-* 
+* `conf/`: 该目录保存一致性测试的步骤
+  * `testcase_generate.py`: 测试用例生成
+  * `testcase_run.py`: 测试用例执行
+  
+* `confgraph`: 该目录用来讲迁移系统表示为图
 
 
