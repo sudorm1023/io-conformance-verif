@@ -26,7 +26,7 @@ class LTS:
         :param acts: The list of all actions
         :param transitions: The list of transitions
         """
-        self.__state_init = init_state
+        self.__init_state = init_state
         self.__states = states
         self.__actions = acts
         self.__transitions = transitions
@@ -83,12 +83,12 @@ class LTS:
         """
         :return: The initial state of LTS
         """
-        return self.__state_init
+        return self.__init_state
 
     @init_state.setter
-    def state_init(self, state: State):
+    def init_state(self, state: State):
         """
         :param state: Update new initial state
         :return: None
         """
-        self.__state_init = state
+        self.__init_state = state
