@@ -92,3 +92,14 @@ class LTS:
         :return: None
         """
         self.__init_state = state
+
+    @property
+    def actions(self):
+        """
+        :return: 返回所有动作对象
+        """
+        return self.__actions
+
+    @actions.setter
+    def actions(self, acts):
+        self.__actions = acts
