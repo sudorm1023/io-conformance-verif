@@ -16,6 +16,7 @@
 * `conf/`: 该目录保存一致性测试的步骤
   * `testcase_generate.py`: 测试用例生成
   * `testcase_run.py`: 测试用例执行
+  * `conf_relation.py`: 判断实现是否满足一致性关系
   
 * `confgraph`: 该目录用来讲迁移系统表示为图
   * `ts_graph.py`: 各种迁移系统的图表示的图的抽象定义
