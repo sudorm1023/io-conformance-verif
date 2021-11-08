@@ -24,3 +24,7 @@
   
 * `constants`: 该目录用来保存各种常量
   * `constant.py`: 保存常量的文件
+  
+* `parsers`: 该目录下的文件用来存放解析的文件
+  * `tsparsers`: 该目录下存放对应不同文件迁移系统的解析文件
+  * `ts_parser.py`: 通用的解析文件
