@@ -3,37 +3,37 @@
 """
 该模块中的函数用来将，以如下文本文件表示的输入输出迁移系统：
 
-module euler_rate_to_ang_vel_AC_AttitudeControl:
+module-iots euler_rate_to_ang_vel_AC_AttitudeControl:
 initial : s0
 output sinf : {s0 -> s1}
 output cosf : {s1 -> s2}
 output cosf : {s2 -> s3}
 output sinf : {s3 -> s4}
-endmodule
+endmodule-iots
 
 转换为输入输出迁移系统IOTS实例
 """
 
 from ts import IOTS
-from iparser import parse_initial_state
-from iparser import parser_transitions
-from iparser import parse_actions
-from iparser import parse_states
+from parsers.tsparsers import parse_initial_state
+from parsers.tsparsers import parse_actions
+from parsers.tsparsers import parse_states
+from parsers.tsparsers import parse_transitions
 from core import Action
 from core import State
 from core import Transition
 
-from ts import iots
-
 
 def iots_parser(file_name: str) -> IOTS:
     """
-    根据*.si文件中描述的输入输出迁移系统，生成对应的IOTS对象
+    根据*.ts文件中描述的输入输出迁移系统，生成对应的IOTS对象
+    :param file_name: .ts结尾的文件
+    :return: IOTS对象
     """
     init_s = parse_initial_state(file_name)
     s = parse_states(file_name)
     a = parse_actions(file_name)
-    t = parser_transitions(file_name)
+    t = parse_transitions(file_name)
 
     # 构造所有状态对象
     states = [State(name) for name in s]
