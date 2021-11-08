@@ -21,5 +21,6 @@
 * `confgraph`: 该目录用来讲迁移系统表示为图
   * `ts_graph.py`: 各种迁移系统的图表示的图的抽象定义
   * `ts_to_tsgraph.py`: 将各种迁移系统转换为TsGraph对象
-
-
+  
+* `constants`: 该目录用来保存各种常量
+  * `constant.py`: 保存常量的文件

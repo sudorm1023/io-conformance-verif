@@ -1,4 +1,4 @@
-module testcase1:
+module-iots testcase1:
 initial : s0
 output act1 : {s0 -> s1}
-endmodule
+endmodule-iots
