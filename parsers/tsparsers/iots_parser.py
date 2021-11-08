@@ -23,10 +23,12 @@ from core import Action
 from core import State
 from core import Transition
 
+from ts import iots
 
-def iparse(file_name: str) -> IOTS:
+
+def iots_parser(file_name: str) -> IOTS:
     """
-    根据*.i文件中描述的输入输出迁移系统，生成对应的IOTS对象
+    根据*.si文件中描述的输入输出迁移系统，生成对应的IOTS对象
     """
     init_s = parse_initial_state(file_name)
     s = parse_states(file_name)
@@ -35,7 +37,7 @@ def iparse(file_name: str) -> IOTS:
 
     # 构造所有状态对象
     states = [State(name) for name in s]
-    init_state = [ s for s in states if s.state_name == init_s][0]
+    init_state = [s for s in states if s.state_name == init_s][0]
 
     in_actions = a[0]
     out_actions = a[1]
