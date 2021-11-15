@@ -35,7 +35,7 @@ class ActionEnum(enum.Enum):
     INTERNAL = 2
 
 
-def iots_to_graph(iots: IOTS):
+def iots_to_graph(iots: IOTS) -> TsGraph:
     """
     该函数根据IOTS对象生成TsGraph对象
 
@@ -60,3 +60,16 @@ def iots_to_graph(iots: IOTS):
         ts_graph.adjlists[first_state].append(adj)
 
     return ts_graph
+
+
+def ts_to_graph(ts) -> TsGraph:
+    """
+    该函数综合不同迁移系统转换为ts graph
+
+    :param ts: 迁移系统对象
+    :return: 返回TsGraph对象
+    """
+    if type(ts) == LTS:
+        return lts_to_graph(ts)
+    elif type(ts) == IOTS:
+        return iots_to_graph(ts)
