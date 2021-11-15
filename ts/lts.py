@@ -118,3 +118,22 @@ class LTS:
     def hide_actions(self, hide_acts):
         self.__hide_actions = hide_acts
 
+    def __str__(self):
+        """
+        格式化输出对象
+        :return: str
+        """
+        result = ""
+        result += self.__init_state.state_name
+
+        states = [s.state_name for s in self.__states]
+        actions = [a.action_name for a in self.__actions]
+        transitions = [(t.start_state.state_name, t.action.action_name, t.end_state.state_name)
+                       for t in self.__transitions]
+
+        return result + "{" + "\n\tstates: {},\n\tactions: {},\n\ttransitions: {}\n".format(
+            str(states),
+            str(actions),
+            str(transitions)) + "}"
+
+
