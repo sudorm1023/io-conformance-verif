@@ -67,7 +67,7 @@ class STS(IOTS):
 
         secure_level = dict()
         for key, value in self.__secure_level:
-            secure_level[key.state_name] = value
+            secure_level[key.action_name] = value
 
         return result + "{" + "\n\tstates: {},\n\tactions: {},\n\tinput actions: {},\n\toutput actions: {},\n\ttransitions: {}\n, secure level: {}\n".format(
             str(states),
