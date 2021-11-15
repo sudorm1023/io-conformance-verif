@@ -65,3 +65,29 @@ class IOTS(LTS):
         """
         self.__output_actions = outs
 
+    def __repr__(self):
+        """
+        格式化输出对象
+        :return: str
+        """
+        result = ""
+        result += self.__init_state.state_name
+
+        states = [s.state_name for s in self.__states]
+        actions = [a.action_name for a in self.__actions]
+
+        input_actions = [a.action_name for a in self.input_actions]
+        output_actions = [a.action_name for a in self.output_actions]
+        transitions = [(t.start_state.state_name, t.action.action_name, t.end_state.state_name)
+                       for t in self.__transitions]
+
+        return result + "{" + "\n\tstates: {},\n\tactions: {},\n\tinput actions: {},\n\toutput actions: {},\n\ttransitions: {}\n".format(
+            str(states),
+            str(actions),
+            str(input_actions),
+            str(output_actions),
+            str(transitions)) + "}"
+
+    def __str__(self):
+        return self.__repr__()
+
