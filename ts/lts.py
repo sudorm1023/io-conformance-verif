@@ -118,7 +118,7 @@ class LTS:
     def hide_actions(self, hide_acts):
         self.__hide_actions = hide_acts
 
-    def __str__(self):
+    def __repr__(self):
         """
         格式化输出对象
         :return: str
@@ -135,5 +135,9 @@ class LTS:
             str(states),
             str(actions),
             str(transitions)) + "}"
+
+    def __str__(self):
+        return self.__repr__()
+
 
 
