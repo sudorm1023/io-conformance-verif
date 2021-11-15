@@ -33,7 +33,7 @@ class Testcase(IOTS):
         :param ins: The list of all input actions
         :param outs: The list of all output actions
         :param transitions: The list of transitions
-        :param verdict : 每个状态到pass或者fail的映射关系
+        :param verdict : 每个状态到pass(1)或者fail(0)的映射关系
         """
         IOTS.__init__(init_state, states, acts, ins, outs, transitions)
         self.__verdict = verdict
@@ -48,3 +48,35 @@ class Testcase(IOTS):
     @verdict.setter
     def verdict(self, verdict):
         self.__verdict = verdict
+
+    def __repr__(self):
+        """
+        格式化输出对象
+        :return: str
+        """
+        result = ""
+        result += self.__init_state.state_name
+
+        states = [s.state_name for s in self.__states]
+        actions = [a.action_name for a in self.__actions]
+
+        input_actions = [a.action_name for a in self.input_actions]
+        output_actions = [a.action_name for a in self.output_actions]
+        transitions = [(t.start_state.state_name, t.action.action_name, t.end_state.state_name)
+                       for t in self.__transitions]
+
+        verdict = dict()
+        for key, value in self.__verdict:
+            result = "pass" if value else "fail"
+            verdict[key.state_name] = result
+
+        return result + "{" + "\n\tstates: {},\n\tactions: {},\n\tinput actions: {},\n\toutput actions: {},\n\ttransitions: {}\n, verdict: {}\n".format(
+            str(states),
+            str(actions),
+            str(input_actions),
+            str(output_actions),
+            str(transitions),
+            str(verdict)) + "}"
+
+    def __str__(self):
+        return self.__repr__()
