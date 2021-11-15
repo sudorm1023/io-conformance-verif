@@ -19,16 +19,19 @@ class LTS:
                  init_state: State,
                  states: List[State],
                  acts: List[Action],
+                 hide_acts: List[Action],
                  transitions: List[Transition]):
         """
         :param init_state: The initialize state of IA
         :param states: The list of State
         :param acts: The list of all actions
+        :param hide_acts: The list of all unobserved actions
         :param transitions: The list of transitions
         """
         self.__init_state = init_state
         self.__states = states
         self.__actions = acts
+        self.__hide_actions = hide_acts
         self.__transitions = transitions
 
     @property
@@ -103,3 +106,15 @@ class LTS:
     @actions.setter
     def actions(self, acts):
         self.__actions = acts
+
+    @property
+    def hide_actions(self):
+        """
+        :return: 返回不可观察对象
+        """
+        return self.__hide_actions
+
+    @hide_actions.setter
+    def hide_actions(self, hide_acts):
+        self.__hide_actions = hide_acts
+

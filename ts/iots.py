@@ -32,7 +32,8 @@ class IOTS(LTS):
         :param outs: The list of all output actions
         :param transitions: The list of transitions
         """
-        LTS.__init__(self, init_state, states, acts, transitions)
+        hide_acts = acts - ins - outs
+        LTS.__init__(self, init_state, states, acts, hide_acts, transitions)
         self.__input_actions = ins
         self.__output_actions = outs
 
