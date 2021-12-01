@@ -39,14 +39,16 @@ def lts_parser(file_name: str) -> LTS:
     states = [State(name) for name in s]
     init_state = [s for s in states if s.state_name == init_s][0]
 
-    actions = a[0]
+    actions = a[0] + a[1]
+    hide_actions = a[-1]
 
-    # 所有动作的对象
+    # 所有可观察动作的对象
     acts = [Action(name) for name in actions]
+    hide_acts = [Action(name) for name in hide_actions]
 
     # 动作名到动作的一个映射
     act_map = dict()
-    for act in acts:
+    for act in (acts + hide_acts):
         act_map[act.action_name] = act
 
     # 状态名到状态对象的一个映射
@@ -63,9 +65,12 @@ def lts_parser(file_name: str) -> LTS:
             state_map[second_state]
         ))
 
+
+
     return LTS(
         init_state,
         states,
         acts,
+        hide_acts,
         transitions
     )

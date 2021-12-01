@@ -85,7 +85,7 @@ def parse_actions_with_iots(file_name) -> List[List[str]]:
     该函数获取所有动作名的集合
 
     :param file_name: .ts结尾的文件
-    :return: 所有动作名的集合[[输入动作集合]， [输入动作集合], [内部动作集合]]
+    :return: 所有动作名的集合[[输入动作集合]， [输出动作集合], [内部动作集合]]
     """
     actions = [set(), set(), set()]
 
@@ -118,7 +118,7 @@ def parse_actions_with_lts(file_name) -> List[List[str]]:
     该函数获取所有动作名的集合
 
     :param file_name: .ts结尾的文件
-    :return: 所有动作名的集合[[动作集合]]
+    :return: 所有动作名的集合[[输入动作集合]， [输出动作集合], [内部动作集合]]
     """
     actions = [set(), set(), set()]
 
@@ -131,9 +131,15 @@ def parse_actions_with_lts(file_name) -> List[List[str]]:
     for line in file_list[2:-1]:
         line = line.strip()
         line_list = line.split(maxsplit=2)
+        action_type = line_list[0].strip()
         action_name = line_list[1].strip()
 
-        actions[0].add(action_name)
+        if action_type == 'input':
+            actions[0].add(action_name)
+        elif action_type == 'output':
+            actions[1].add(action_name)
+        else:
+            actions[-1].add(action_name)
 
     actions = [list(act) for act in actions]
 
