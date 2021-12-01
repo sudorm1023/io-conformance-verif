@@ -32,7 +32,7 @@ class IOTS(LTS):
         :param outs: The list of all output actions
         :param transitions: The list of transitions
         """
-        hide_acts = acts - ins - outs
+        hide_acts = [a for a in acts if a not in (ins + outs)]
         LTS.__init__(self, init_state, states, acts, hide_acts, transitions)
         self.__input_actions = ins
         self.__output_actions = outs
@@ -71,15 +71,15 @@ class IOTS(LTS):
         :return: str
         """
         result = ""
-        result += self.__init_state.state_name
+        result += self.init_state.state_name
 
-        states = [s.state_name for s in self.__states]
-        actions = [a.action_name for a in self.__actions]
+        states = [s.state_name for s in self.states]
+        actions = [a.action_name for a in self.actions]
 
         input_actions = [a.action_name for a in self.input_actions]
         output_actions = [a.action_name for a in self.output_actions]
         transitions = [(t.start_state.state_name, t.action.action_name, t.end_state.state_name)
-                       for t in self.__transitions]
+                       for t in self.transitions]
 
         return result + "{" + "\n\tstates: {},\n\tactions: {},\n\tinput actions: {},\n\toutput actions: {},\n\ttransitions: {}\n".format(
             str(states),

@@ -46,8 +46,8 @@ class STS(IOTS):
         return self.__secure_level
 
     @secure_level.setter
-    def verdict(self, secure_level):
-        self.__secure_level = secure_level
+    def secure_level(self, s):
+        self.__secure_level = s
 
     def __repr__(self):
         """
@@ -57,13 +57,13 @@ class STS(IOTS):
         result = ""
         result += self.__init_state.state_name
 
-        states = [s.state_name for s in self.__states]
-        actions = [a.action_name for a in self.__actions]
+        states = [s.state_name for s in self.states]
+        actions = [a.action_name for a in self.actions]
 
         input_actions = [a.action_name for a in self.input_actions]
         output_actions = [a.action_name for a in self.output_actions]
         transitions = [(t.start_state.state_name, t.action.action_name, t.end_state.state_name)
-                       for t in self.__transitions]
+                       for t in self.transitions]
 
         secure_level = dict()
         for key, value in self.__secure_level:
