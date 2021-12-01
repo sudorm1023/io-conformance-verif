@@ -1,6 +1,6 @@
-module testcase1:
+module-lts testcase3:
 initial : s0
 output act1 : {s0 -> s1}
 input act2 : {s1 -> s2}
 hide act3 : {s2 -> s3}
-endmodule
+endmodule-lts
