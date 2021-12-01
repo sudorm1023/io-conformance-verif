@@ -3,7 +3,7 @@ import unittest
 from parsers.tsparsers import lts_parser
 
 
-class MyTestCase(unittest.TestCase):
+class TestLtsParser(unittest.TestCase):
     def test_lts_parser1(self):
         lts = lts_parser("../../../testcase_examples/testcase1.si")
         print(lts)
