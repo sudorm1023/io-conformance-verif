@@ -22,6 +22,7 @@ from parsers.tsparsers import parse_states
 from parsers.tsparsers import parse_initial_state
 from parsers.tsparsers import parse_actions
 from parsers.tsparsers import parse_transitions
+from parsers.tsparsers import parse_secure_level_with_sts
 
 
 def sts_parser(file_name: str) -> STS:
@@ -71,7 +72,7 @@ def sts_parser(file_name: str) -> STS:
             state_map[second_state]
         ))
 
-    secure_level = {}
+    secure_level = parse_secure_level_with_sts(file_name)
 
     return STS(
         init_state,

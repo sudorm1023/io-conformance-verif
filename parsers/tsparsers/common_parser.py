@@ -301,7 +301,7 @@ def parse_transitions_with_sts(file_name) -> List[Tuple[str]]:
     return transitions
 
 
-def parse_transitions(file_name) -> List[List[str]]:
+def parse_transitions(file_name: str) -> List[List[str]]:
     """
     根据不同的迁移系统选择不同的解析迁移的方法
     """
@@ -321,6 +321,30 @@ def parse_transitions(file_name) -> List[List[str]]:
     return
 
 
+def parse_secure_level_with_sts(file_name: str) -> dict:
+    """
+    解析sts中的安全级
+    :param file_name:
+    :return: {动作名1：安全级， 动作名2：安全级}
+    """
+    secure_level = dict()
+    file_list = parse_file_to_list(file_name)
+
+    if len(file_list) <= 3:
+        print("\033[31m[!] Error: bad representation!\033[0m")
+        exit(0)
+
+    for line in file_list[2:-1]:
+        line = line.strip()
+        line_list = line.split(maxsplit=2)
+        action_type = line_list[0].strip()
+        action_name = line_list[1].strip()
+
+        if action_type == 'input' or action_type == 'output':
+            level = 1 if action_name[-2] == "H" else 0
+            secure_level[action_name[:-3]] = level
+
+    return secure_level
 
 
 

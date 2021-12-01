@@ -35,7 +35,7 @@ class STS(IOTS):
         :param transitions: The list of transitions
         :param secure_level : 可观察动作到安全级别0或者1的一个映射
         """
-        IOTS.__init__(init_state, states, acts, ins, outs, transitions)
+        IOTS.__init__(self, init_state, states, acts, ins, outs, transitions)
         self.__secure_level = secure_level
 
     @property
@@ -55,7 +55,7 @@ class STS(IOTS):
         :return: str
         """
         result = ""
-        result += self.__init_state.state_name
+        result += self.init_state.state_name
 
         states = [s.state_name for s in self.states]
         actions = [a.action_name for a in self.actions]
@@ -65,11 +65,9 @@ class STS(IOTS):
         transitions = [(t.start_state.state_name, t.action.action_name, t.end_state.state_name)
                        for t in self.transitions]
 
-        secure_level = dict()
-        for key, value in self.__secure_level:
-            secure_level[key.action_name] = value
+        secure_level = self.__secure_level
 
-        return result + "{" + "\n\tstates: {},\n\tactions: {},\n\tinput actions: {},\n\toutput actions: {},\n\ttransitions: {}\n, secure level: {}\n".format(
+        return result + "{" + "\n\tstates: {},\n\tactions: {},\n\tinput actions: {},\n\toutput actions: {},\n\ttransitions: {},\n\tsecure level: {}\n".format(
             str(states),
             str(actions),
             str(input_actions),
