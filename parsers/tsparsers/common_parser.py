@@ -294,7 +294,7 @@ def parse_transitions_with_sts(file_name) -> List[Tuple[str]]:
         if "input" in line or "output" in line:
             action_name = line.split(maxsplit=2)[1].strip()[:-3]
         else:
-            action_name = line.split(maxsplit=2)[1].strip()[:-3]
+            action_name = line.split(maxsplit=2)[1].strip()
 
         transitions.append((first_state, action_name, second_state))
 
@@ -319,5 +319,8 @@ def parse_transitions(file_name) -> List[List[str]]:
         return parse_transitions_with_sts(file_name)
 
     return
+
+
+
 
 
