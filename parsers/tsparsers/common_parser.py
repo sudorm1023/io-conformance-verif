@@ -151,9 +151,32 @@ def parse_actions_with_sts(file_name) -> List[List[str]]:
     该函数获取所有动作名的集合
 
     :param file_name: .ts结尾的文件
-    :return: 所有动作名的集合[[动作集合]]
+    :return: 所有动作名的集合[[输入动作集合]， [输出动作集合], [内部动作集合]]
     """
-    return parse_actions_with_iots(file_name)
+    actions = [set(), set(), set()]
+
+    file_list = parse_file_to_list(file_name)
+
+    if len(file_list) <= 3:
+        print("\033[31m[!] Error: bad representation!\033[0m")
+        exit(0)
+
+    for line in file_list[2:-1]:
+        line = line.strip()
+        line_list = line.split(maxsplit=2)
+        action_type = line_list[0].strip()
+        action_name = line_list[1].strip()
+
+        if action_type == 'input':
+            actions[0].add(action_name[:-3])
+        elif action_type == 'output':
+            actions[1].add(action_name[:-3])
+        else:
+            actions[-1].add(action_name)
+
+    actions = [list(act) for act in actions]
+
+    return actions
 
 
 def parse_ts_type(file_name) -> str:
@@ -196,9 +219,9 @@ def parse_actions(file_name) -> List[List[str]]:
     return
 
 
-def parse_transitions(file_name) -> List[Tuple[str]]:
+def parse_transitions_with_lts(file_name) -> List[Tuple[str]]:
     """
-    该函数获取所有迁移关系的集合
+    该函数获取LTS所有迁移关系的集合
 
     :param file_name: .ts结尾的文件
     :return: 所有迁移的集合[(起始状态，动作，终止状态)]
@@ -228,3 +251,73 @@ def parse_transitions(file_name) -> List[Tuple[str]]:
         transitions.append((first_state, action_name, second_state))
 
     return transitions
+
+
+def parse_transitions_with_iots(file_name) -> List[Tuple[str]]:
+    """
+    该函数获取iOTS所有迁移关系的集合
+
+    :param file_name: .ts结尾的文件
+    :return: 所有迁移的集合[(起始状态，动作，终止状态)]
+    """
+
+    return parse_transitions_with_lts(file_name)
+
+
+def parse_transitions_with_sts(file_name) -> List[Tuple[str]]:
+    """
+    该函数获取STS所有迁移关系的集合
+
+    :param file_name: .ts结尾的文件
+    :return: 所有迁移的集合[(起始状态，动作，终止状态)]
+    """
+    transitions = list()
+
+    file_list = parse_file_to_list(file_name)
+
+    if len(file_list) <= 3:
+        print("\033[31m[!] Error: bad representation!\033[0m")
+        exit(0)
+
+    for line in file_list[2:-1]:
+        line = line.strip()
+        state_match = re.search(r'{.*}', line)
+        if not state_match:
+            print('\033[31m[!] Error: error match in parser_transitions()\033[0m')
+
+        result = state_match.group()
+        # 解析转换的状态的名字
+        first_state = result[1:-1].split()[0]
+        second_state = result[1:-1].split()[-1]
+
+        # 解析动作的名字
+        if "input" in line or "output" in line:
+            action_name = line.split(maxsplit=2)[1].strip()[:-3]
+        else:
+            action_name = line.split(maxsplit=2)[1].strip()[:-3]
+
+        transitions.append((first_state, action_name, second_state))
+
+    return transitions
+
+
+def parse_transitions(file_name) -> List[List[str]]:
+    """
+    根据不同的迁移系统选择不同的解析迁移的方法
+    """
+
+    ts_type = parse_ts_type(file_name)
+    if ts_type not in TS_TYPE:
+        print("\033[31m[!] Error: type is not exist!\033[0m")
+        exit(0)
+
+    if ts_type == "LTS":
+        return parse_transitions_with_lts(file_name)
+    elif ts_type == "IOTS":
+        return parse_transitions_with_iots(file_name)
+    elif ts_type == "STS":
+        return parse_transitions_with_sts(file_name)
+
+    return
+
+
